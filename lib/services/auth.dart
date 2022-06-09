@@ -13,8 +13,10 @@ class AuthService {
   }
 
   //Stream - Authentication Change
-  Stream<FirebaseUser> get user {
-    return _auth.onAuthStateChanged;
+  Stream<User> get user {
+    return _auth.onAuthStateChanged
+        //.map((FirebaseUser user) => _userFromFirebaseUser(user));
+        .map(_userFromFirebaseUser);
   }
 
 //  Method to sign in anonymously
