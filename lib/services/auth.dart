@@ -4,13 +4,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 //define all diff methods - will interact with FirebaseAuth
 //Create an instance of FirebaseAuth
 class AuthService {
-  final FirebaseAuth _auth = FirebaseAuth.instance;   //_property is private     // object <- instance of FirebaseAuth class(properties & methods all access)
-  
+  final FirebaseAuth _auth = FirebaseAuth
+      .instance; //_property is private     // object <- instance of FirebaseAuth class(properties & methods all access)
 
   //  Create user object based on FirebaseUser
-  User _userFromFirebaseUser(FirebaseUser user) 
-  {
+  User _userFromFirebaseUser(FirebaseUser user) {
     return user != null ? User(uid: user.uid) : null;
+  }
+
+  //Stream - Authentication Change
+  Stream<FirebaseUser> get user {
+    return _auth.onAuthStateChanged;
   }
 
 //  Method to sign in anonymously
@@ -18,7 +22,7 @@ class AuthService {
     try {
       AuthResult result = await _auth.signInAnonymously();
       FirebaseUser user = result.user;
-      return _userFromFirebaseUser(user);   //Custom User 
+      return _userFromFirebaseUser(user); //Custom User
     } catch (e) {
       print(e.toString());
       return null;
