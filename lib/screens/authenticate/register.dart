@@ -1,16 +1,18 @@
 import 'package:brew_crew/services/auth.dart';
 import 'package:flutter/material.dart';
 
-class SignIn extends StatefulWidget {
+class Register extends StatefulWidget {
   @override
-  State<SignIn> createState() => _SignInState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _SignInState extends State<SignIn> {
-  final AuthService _auth = AuthService(); //instace of AuthService class
-
+class _RegisterState extends State<Register> {
+  final AuthService _auth = AuthService();
   String email = '';
   String password = '';
+  String username = '';
+  String name = '';
+  String confpass = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +20,7 @@ class _SignInState extends State<SignIn> {
       appBar: AppBar(
         backgroundColor: Colors.brown[400],
         elevation: 0.0,
-        title: Text('Sign In'),
+        title: Text('Sign Up'),
         actions: <Widget>[
           TextButton.icon(
               onPressed: () {},
@@ -27,7 +29,7 @@ class _SignInState extends State<SignIn> {
                 color: Colors.white,
               ),
               label: Text(
-                'Get Started', //Allow to switch b/w signin and signup
+                'Already a Member?', //Allow to switch b/w signin and signup
                 style: TextStyle(color: Colors.white),
               ))
         ],
@@ -41,8 +43,26 @@ class _SignInState extends State<SignIn> {
                   height: 20.0,
                 ),
                 TextFormField(
-                  decoration: InputDecoration(hintText: 'Email Address'),
+                  decoration: InputDecoration(hintText: 'Name'),
                   autofocus: true,
+                  onChanged: (val) {
+                    setState(() => name = val);
+                  },
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                TextFormField(
+                  decoration: InputDecoration(hintText: 'Username'),
+                  onChanged: (val) {
+                    setState(() => username = val);
+                  },
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                TextFormField(
+                  decoration: InputDecoration(hintText: 'Email Address'),
                   onChanged: (val) {
                     setState(() => email = val);
                   },
@@ -60,6 +80,16 @@ class _SignInState extends State<SignIn> {
                 SizedBox(
                   height: 20.0,
                 ),
+                TextFormField(
+                  decoration: InputDecoration(hintText: 'Confirm Password'),
+                  obscureText: true,
+                  onChanged: (val) {
+                    setState(() => confpass = val);
+                  },
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
                 ElevatedButton(
                     style: ButtonStyle(
                         backgroundColor:
@@ -69,7 +99,7 @@ class _SignInState extends State<SignIn> {
                       print(password);
                     },
                     child: Text(
-                      'Sign In',
+                      'REGISTER',
                       style: TextStyle(color: Colors.white),
                     ))
               ],
