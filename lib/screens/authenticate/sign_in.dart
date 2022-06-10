@@ -9,6 +9,8 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   final AuthService _auth = AuthService(); //instace of AuthService class
 
+  String email = '';
+  String password = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,21 +21,46 @@ class _SignInState extends State<SignIn> {
         title: Text('Sign In to Brew Crew'),
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-        child: ElevatedButton(
-          child: Text('Anonymous Sign-In'),
-          onPressed: () async {
-            dynamic result = await _auth.signInAnon();
-            if (result == null) {
-              print('Error signing in');
-            } else {
-              print('Sign-In Successful!!');
-              print(result);
-              print(result.uid);
-            }
-          },
-        ),
-      ),
+          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+          child: Form(
+            child: Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 20.0,
+                ),
+                TextFormField(
+                  autofocus: true,
+                  onChanged: (val) {
+                    setState(() => email = val);
+                  },
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                TextFormField(
+                  obscureText: true,
+                  onChanged: (val) {
+                    setState(() => password = val);
+                  },
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.pink[400])),
+                    onPressed: () async {
+                      print(email);
+                      print(password);
+                    },
+                    child: Text(
+                      'Sign In',
+                      style: TextStyle(color: Colors.white),
+                    ))
+              ],
+            ),
+          )),
     );
   }
 }
