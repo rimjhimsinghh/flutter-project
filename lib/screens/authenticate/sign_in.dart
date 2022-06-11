@@ -109,6 +109,18 @@ class _SignInState extends State<SignIn> {
                         error,
                         style: TextStyle(color: Colors.red, fontSize: 12.0),
                       ),
+                      SizedBox(
+                        height: 12.0,
+                      ),
+                      ElevatedButton(
+                        onPressed: () async {
+                          setState(() => loading = true);
+                          dynamic result = await _auth.signInAnon();
+                          print(result);
+                          loading = false;
+                        },
+                        child: Text('Anonymous Sign In'),
+                      ),
                     ],
                   ),
                 )),
