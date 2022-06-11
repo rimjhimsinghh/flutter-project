@@ -1,5 +1,6 @@
 import 'package:brew_crew/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 
 //define all diff methods - will interact with FirebaseAuth
 //Create an instance of FirebaseAuth
@@ -33,6 +34,21 @@ class AuthService {
 
   //  sign-in with email
   // register with email
+  Future registerWithEmail(String email, String password) async {
+    try {
+      AuthResult result = await _auth.createUserWithEmailAndPassword(
+          email: email.trim(), password: password);
+      FirebaseUser user = result.user;
+      return _userFromFirebaseUser(user);
+    } on PlatformException catch (e) {
+      print("Platform Exception thrown on Sign Up page");
+      print(e.message);
+    } catch (e) {
+      print(e.message);
+      return null;
+    }
+  }
+
   // sign out
   Future signOut() async {
     try {
