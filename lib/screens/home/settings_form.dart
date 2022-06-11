@@ -76,7 +76,8 @@ class _SettingsFormState extends State<SettingsForm> {
                   //slider
                   Slider(
                     value: (_currentStrength ?? userData.strength).toDouble(),
-                    activeColor: Colors.brown[_currentStrength ?? 100],
+                    activeColor:
+                        Colors.brown[_currentStrength ?? userData.strength],
                     inactiveColor: Colors.brown[100],
                     min: 100.0,
                     max: 900.0,
@@ -93,9 +94,16 @@ class _SettingsFormState extends State<SettingsForm> {
                           backgroundColor:
                               MaterialStateProperty.all(Colors.pink[400])),
                       onPressed: () async {
-                        print(_currentName);
-                        print(_currentSugars);
-                        print(_currentStrength);
+                        // print(_currentName);
+                        // print(_currentSugars);
+                        // print(_currentStrength);
+                        if (_formKey.currentState.validate()) {
+                          await DatabaseService(uid: user.uid).updateUserData(
+                              _currentSugars ?? userData.sugars,
+                              _currentName ?? userData.name,
+                              _currentStrength ?? userData.strength);
+                          Navigator.pop(context);
+                        }
                       },
                       child: Text(
                         'Update',
