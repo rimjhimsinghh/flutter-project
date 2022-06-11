@@ -1,5 +1,6 @@
 import 'package:brew_crew/services/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:brew_crew/shared/constants.dart';
 
 class Register extends StatefulWidget {
   final Function toggleView;
@@ -55,7 +56,7 @@ class _RegisterState extends State<Register> {
                   TextFormField(
                     validator: (val) =>
                         val.isEmpty ? 'Please provide a Name' : null,
-                    decoration: InputDecoration(hintText: 'Name'),
+                    decoration: textInputDecoration.copyWith(hintText: 'Name'),
                     autofocus: true,
                     onChanged: (val) {
                       setState(() => name = val);
@@ -67,7 +68,8 @@ class _RegisterState extends State<Register> {
                   TextFormField(
                     validator: (val) =>
                         val.isEmpty ? 'Please provide a username' : null,
-                    decoration: InputDecoration(hintText: 'Username'),
+                    decoration:
+                        textInputDecoration.copyWith(hintText: 'Username'),
                     onChanged: (val) {
                       setState(() => username = val);
                     },
@@ -78,7 +80,8 @@ class _RegisterState extends State<Register> {
                   TextFormField(
                     validator: (val) =>
                         !val.contains('@') ? 'Invalid E-mail' : null,
-                    decoration: InputDecoration(hintText: 'Email Address'),
+                    decoration:
+                        textInputDecoration.copyWith(hintText: 'E-mail'),
                     onChanged: (val) {
                       setState(() => email = val.trim());
                     },
@@ -90,7 +93,8 @@ class _RegisterState extends State<Register> {
                     validator: (val) => val.length < 6
                         ? 'Password must be 6+ character long'
                         : null,
-                    decoration: InputDecoration(hintText: 'Password'),
+                    decoration:
+                        textInputDecoration.copyWith(hintText: 'Password'),
                     obscureText: true,
                     onChanged: (val) {
                       setState(() => password = val);
@@ -100,7 +104,8 @@ class _RegisterState extends State<Register> {
                     height: 20.0,
                   ),
                   TextFormField(
-                    decoration: InputDecoration(hintText: 'Confirm Password'),
+                    decoration: textInputDecoration.copyWith(
+                        hintText: 'Confirm Password'),
                     obscureText: true,
                     onChanged: (val) {
                       setState(() => confpass = val);
