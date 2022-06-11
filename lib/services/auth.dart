@@ -1,4 +1,5 @@
 import 'package:brew_crew/models/user.dart';
+import 'package:brew_crew/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 
@@ -59,6 +60,9 @@ class AuthService {
       AuthResult result = await _auth.createUserWithEmailAndPassword(
           email: email.trim(), password: password);
       FirebaseUser user = result.user;
+      //Create a new document for the user with the UID
+      await DatabaseService(uid: user.uid)
+          .updateUserData('0', 'New Crew Member', 100);
       return _userFromFirebaseUser(user);
     } on PlatformException catch (e) {
       var msg = 'Error occured, please check your credentials';
