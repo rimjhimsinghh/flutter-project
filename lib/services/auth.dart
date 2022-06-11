@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 //define all diff methods - will interact with FirebaseAuth
 //Create an instance of FirebaseAuth
 class AuthService {
-  final FirebaseAuth _auth = FirebaseAuth
+  FirebaseAuth _auth = FirebaseAuth
       .instance; //_property is private     // object <- instance of FirebaseAuth class(properties & methods all access)
 
   //  Create user object based on FirebaseUser
@@ -34,14 +34,23 @@ class AuthService {
 
   //  sign-in with email & password
   Future signInWithEmailAndPassword(String email, String password) async {
+    AuthResult result;
+    FirebaseUser user;
     try {
-      AuthResult result = await _auth.signInWithEmailAndPassword(
-          email: email, password: password);
-      FirebaseUser user = result.user;
-      return _userFromFirebaseUser(user);
+      result = await _auth.signInWithEmailAndPassword(
+          email: email.trim(), password: password);
+      user = result.user;
+    } on PlatformException catch (e) {
+      var msg = 'Error occured, please check your credentials';
+      if (e.message != null) {
+        msg = e.message;
+        return null;
+      }
     } catch (e) {
       print(e.message);
+      return null;
     }
+    return _userFromFirebaseUser(user);
   }
 
   // register with email
@@ -52,8 +61,11 @@ class AuthService {
       FirebaseUser user = result.user;
       return _userFromFirebaseUser(user);
     } on PlatformException catch (e) {
-      print("Platform Exception thrown on Sign Up page");
-      print(e.message);
+      var msg = 'Error occured, please check your credentials';
+      if (e.message != null) {
+        msg = e.message;
+        return null;
+      }
     } catch (e) {
       print(e.message);
       return null;
