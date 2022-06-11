@@ -108,7 +108,7 @@ class _SignInState extends State<SignIn> {
                       Text(
                         error,
                         style: TextStyle(color: Colors.red, fontSize: 12.0),
-                      )
+                      ),
                     ],
                   ),
                 )),
