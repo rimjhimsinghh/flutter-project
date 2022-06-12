@@ -22,6 +22,7 @@ class _SignInState extends State<SignIn> {
     return loading
         ? Loading()
         : Scaffold(
+            resizeToAvoidBottomInset: false,
             backgroundColor: Colors.brown[100],
             appBar: AppBar(
               backgroundColor: Colors.brown[400],
@@ -43,6 +44,11 @@ class _SignInState extends State<SignIn> {
               ],
             ),
             body: Container(
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                  image: AssetImage('assets/coffee_bg.png'),
+                  fit: BoxFit.cover,
+                )),
                 padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
                 child: Form(
                   key: _formKey,

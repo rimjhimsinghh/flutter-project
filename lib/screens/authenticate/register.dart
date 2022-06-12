@@ -27,6 +27,7 @@ class _RegisterState extends State<Register> {
     return loading
         ? Loading()
         : Scaffold(
+            resizeToAvoidBottomInset: false,
             backgroundColor: Colors.brown[100],
             appBar: AppBar(
               backgroundColor: Colors.brown[400],
@@ -47,9 +48,16 @@ class _RegisterState extends State<Register> {
                     ))
               ],
             ),
-            body: SingleChildScrollView(
-              child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+            body: Container(
+              width: double.infinity,
+            height: double.infinity,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                  image: AssetImage('assets/coffee_bg.png'),
+                  fit: BoxFit.cover,
+                )),
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+                child: SingleChildScrollView(
                   child: Form(
                     key: _formKey,
                     child: Column(
@@ -149,8 +157,8 @@ class _RegisterState extends State<Register> {
                         )
                       ],
                     ),
-                  )),
-            ),
+                  ),
+                )),
           );
   }
 }
